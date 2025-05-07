@@ -1,32 +1,20 @@
-const express = require('express');
-const fs = require('fs');
-const yaml = require('js-yaml');
-const swaggerUi = require('swagger-ui-express');
-const path = require('path');
+import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import zonaRoutes from './routes/zonaRoutes.js';
+import tempRoutes from './routes/tempRoutes.js';
+import loadSwaggerDoc from './config/swaggerConfig.js';
 
-const zonaRoutes = require('./routes/zonaRoutes');
-
-let swaggerDocument;
-
-// Cargar el archivo Swagger correctamente
-try {
-  const swaggerPath = path.join(__dirname, 'docs/swagger.yaml');
-  swaggerDocument = yaml.load(fs.readFileSync(swaggerPath, 'utf8'));
-  console.log('Archivo Swagger cargado exitosamente');
-} catch (e) {
-  console.error('Error al cargar el archivo Swagger:', e);
-  process.exit(1); // Detener el servidor si no se puede cargar Swagger
-}
 
 const app = express();
 const port = 3000;
 
+const swaggerDocument = loadSwaggerDoc();
+
 app.use(express.json());
 
-// Rutas de API
 app.use('/', zonaRoutes);
+app.use('/', tempRoutes);
 
-// Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {

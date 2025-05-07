@@ -18,4 +18,4 @@ class Zona {
   }
 }
 
-module.exports = Zona;
+export default Zona;

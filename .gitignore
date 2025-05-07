@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Swagger generated files (si usas auto-generación)
+swagger-output.json
+
+# Mac system files
+.DS_Store
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Coverage (si usas pruebas)
+coverage/
+
+# Temporary files
+tmp/
+*.tmp
+
+# nodemon config file (opcional si es personalizado)
+nodemon.json

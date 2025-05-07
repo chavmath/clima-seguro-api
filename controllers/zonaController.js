@@ -1,8 +1,8 @@
-const Zona = require("../models/zonaModel");
+import Zona from '../models/zonaModel.js';
 
 let zonas = [];
 
-const createZona = (req, res) => {
+export const createZona = (req, res) => {
   const { nombre, cultivo_principal, hectareas, coordenadas } = req.body;
 
   if (
@@ -29,11 +29,11 @@ const createZona = (req, res) => {
   res.status(201).json(nuevaZona.toJSON());
 };
 
-const getZonas = (req, res) => {
+export const getZonas = (req, res) => {
   res.json(zonas.map((zona) => zona.toJSON()));
 };
 
-const getZonaById = (req, res) => {
+export const getZonaById = (req, res) => {
   const zona = zonas.find((zona) => zona.id === parseInt(req.params.id));
   if (!zona) {
     return res.status(404).json({ message: "Zona no encontrada" });
@@ -41,18 +41,11 @@ const getZonaById = (req, res) => {
   res.json(zona.toJSON());
 };
 
-const deleteZonaById = (req, res) => {
+export const deleteZonaById = (req, res) => {
   const index = zonas.findIndex((zona) => zona.id === parseInt(req.params.id));
   if (index === -1) {
     return res.status(404).json({ message: "Zona no encontrada" });
   }
   zonas.splice(index, 1);
   res.status(204).send();
-};
-
-module.exports = {
-  createZona,
-  getZonas,
-  getZonaById,
-  deleteZonaById,
 };

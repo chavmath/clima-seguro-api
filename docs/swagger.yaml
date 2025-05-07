@@ -51,7 +51,7 @@ paths:
                 $ref: '#/components/schemas/Zona'
         '404':
           description: Zona no encontrada
-          
+
     delete:
       summary: Elimina una zona por ID
       parameters:
@@ -66,6 +66,36 @@ paths:
           description: Zona eliminada correctamente
         '404':
           description: Zona no encontrada
+
+  /temperatura/convertir:
+    get:
+      summary: Convierte un valor en grados Celsius a Fahrenheit utilizando un servicio SOAP
+      parameters:
+        - name: valor
+          in: query
+          required: true
+          description: Valor en grados Celsius a convertir
+          schema:
+            type: number
+            example: 30
+      responses:
+        '200':
+          description: Conversión exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  celsius:
+                    type: number
+                    example: 30
+                  fahrenheit:
+                    type: number
+                    example: 86
+        '400':
+          description: Valor inválido o faltante
+        '500':
+          description: Error al contactar con el servicio SOAP
 
 components:
   schemas:
