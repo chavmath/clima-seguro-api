@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: API de ClimaSeguro
+  description: API RESTful para gestionar zonas agrícolas
+  version: 1.0.0
+paths:
+  /zonas:
+    get:
+      summary: Obtiene todas las zonas registradas
+      responses:
+        '200':
+          description: Lista de zonas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Zona'
+    post:
+      summary: Registra una nueva zona agrícola
+      requestBody:
+        description: Información de la nueva zona
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Zona'
+      responses:
+        '201':
+          description: Zona registrada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Zona'
+
+  /zonas/{id}:
+    get:
+      summary: Obtiene los detalles de una zona específica
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zona
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Zona encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Zona'
+        '404':
+          description: Zona no encontrada
+          
+    delete:
+      summary: Elimina una zona por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zona
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Zona eliminada correctamente
+        '404':
+          description: Zona no encontrada
+
+components:
+  schemas:
+    Zona:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "Región Norte"
+        cultivo_principal:
+          type: string
+          example: "Café"
+        hectareas:
+          type: number
+          format: float
+          example: 120.5
+        coordenadas:
+          type: object
+          properties:
+            latitud:
+              type: number
+              example: -0.25
+            longitud:
+              type: number
+              example: -78.52
