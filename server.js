@@ -18,10 +18,8 @@ try {
 const app = express();
 const port = 3000;
 
-// Middleware para parsear JSON en las solicitudes
 app.use(express.json());
 
-// Rutas de la API utilizando los controladores
 app.post("/zonas", require("./controllers/zonaController").createZona);
 app.get("/zonas", require("./controllers/zonaController").getZonas);
 app.get("/zonas/:id", require("./controllers/zonaController").getZonaById);
@@ -30,10 +28,8 @@ app.delete(
   require("./controllers/zonaController").deleteZonaById
 );
 
-// Servir la documentación de Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
