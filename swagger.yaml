@@ -1,0 +1,16 @@
+openapi: 3.0.0
+info:
+  title: Clima Seguro API
+  version: 1.0.0
+  description: API para gestionar zonas seguras según condiciones climáticas
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /zonas:
+    get:
+      summary: Obtener lista de zonas
+      responses:
+        '200':
+          description: Lista obtenida exitosamente
